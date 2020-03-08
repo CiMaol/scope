@@ -94,8 +94,7 @@ func (n Node) LookupCounter(k string) (value int, found bool) {
 // (counters are stored as strings, to keep the data structure simple)
 func (n Node) AddCounter(k string, value int) Node {
 	name := CounterPrefix + k
-	if prevStr, found := n.Latest.Lookup(name); found {
-		prevValue, _ := strconv.Atoi(prevStr)
+	if prevValue, found := n.LookupCounter(k); found {
 		value += prevValue
 	}
 	return n.WithLatest(name, mtime.Now(), strconv.Itoa(value))
