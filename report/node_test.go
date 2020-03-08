@@ -146,6 +146,9 @@ func TestMergeNodes(t *testing.T) {
 				}),
 			},
 		},
+		// Note we previously tested that counters merged by adding,
+		// but that was a bug: merges must be idempotent.
+		// Counters merge like other 'latest' values now.
 	} {
 		if have := c.a.Merge(c.b); !reflect.DeepEqual(c.want, have) {
 			t.Errorf("%s: %s", name, test.Diff(c.want, have))
